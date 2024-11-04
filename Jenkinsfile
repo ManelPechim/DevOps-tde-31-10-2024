@@ -18,6 +18,9 @@ pipeline {
                 script {
                     // Inicia os containers com docker-compose
                     sh 'docker-compose up -d'
+                    sh 'docker-compose down'
+                    sh 'docker rmi -f docker-project_flask_app || true'
+                    sh 'docker rmi -f docker-project_mariadb || true'
 
                 }
             }
