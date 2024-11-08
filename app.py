@@ -1,6 +1,6 @@
 # Código principal do Flask (app.py)
 import time
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from flask_appbuilder import AppBuilder, SQLA
 from flask_appbuilder.models.sqla.interface import SQLAInterface
@@ -91,3 +91,21 @@ def adicionar_aluno():
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
+
+# Rota para exibir o formulário de cadastro de aluno
+@app.route('/register', methods=['GET'])
+def exibir_formulario():
+    return render_template('register_student.html')
+
+#Rota para suportar o formulario html
+@app.route('/adicionar_aluno_form', methods=['POST'])
+def adicionar_aluno_form():
+    nome = request.form['nome']
+    sobrenome = request.form['sobrenome']
+    turma = request.form['turma']
+    disciplinas = request.form['disciplinas']
+    novo_aluno = Aluno(nome=nome, sobrenome=sobrenome, turma=turma, disciplinas=disciplinas)
+    db.session.add(novo_aluno)
+    db.session.commit()
+    logger.info(f"Aluno {nome} {sobrenome} adicionado com sucesso!")
+    return redirect(url_for('listar_alunos'))
