@@ -8,6 +8,6 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 #COPY . .
 COPY app.py /app/
-COPY register_student.html /templates/templates/
+COPY templates /templates/templates
 
 CMD ["flask", "run", "--host=0.0.0.0"]
