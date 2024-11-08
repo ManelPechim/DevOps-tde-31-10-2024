@@ -95,7 +95,7 @@ if __name__ == '__main__':
 # Rota para exibir o formulário de cadastro de aluno
 @app.route('/register', methods=['GET'])
 def exibir_formulario():
-    return render_template('register_student.html')
+    return render_template('templates/register_student.html')
 
 #Rota para suportar o formulario html
 @app.route('/adicionar_aluno_form', methods=['POST'])
